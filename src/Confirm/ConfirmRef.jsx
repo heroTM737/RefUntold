@@ -1,7 +1,7 @@
 import {forwardRef, useImperativeHandle, useState} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 
-function Confirm (props, ref) {
+function ConfirmRef (props, ref) {
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState('');
     const [promiseCallback, setPromiseCallback] = useState(null);
@@ -40,4 +40,4 @@ function Confirm (props, ref) {
     )
 }
 
-export default forwardRef(Confirm)
+export default forwardRef(ConfirmRef)
