@@ -8,7 +8,7 @@ function generateData() {
     for (let i = 0; i < 10; i++) {
         itemList.push({
             id: i,
-            name: `item-${i},`,
+            name: `item-${i}`,
             description: 'a good one',
             created_at: '20-10-2022 14:00:00'
         })
