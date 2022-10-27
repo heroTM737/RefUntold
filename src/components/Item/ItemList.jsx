@@ -1,14 +1,27 @@
-import Confirm from "./Confirm/ConfirmRef";
-import ConfirmNormal from "./Confirm/ConfirmNormal";
-import {useRef, useState} from "react";
+import Confirm from "../Confirm/ConfirmRef";
+import ConfirmNormal from "../Confirm/ConfirmNormal";
+import { useEffect, useRef, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import ItemService from "../../services/ItemService";
 
-function ItemList (props) {
-    const {items, onClickItem} = props;
+function ItemList(props) {
+    const { openItemEditor } = props;
     const confirmRef = useRef(null);
-
+    const [items, setItems] = useState([])
     const [confirmItem, setConfirmItem] = useState(null)
     const [visibleConfirm, setVisibleConfirm] = useState(false)
+
+    useEffect(() => {
+        onRefresh()
+    }, [])
+
+    const onRefresh = () => {
+        ItemService.search().then(data => setItems(data))
+    }
+
+    const doDelete = (id) => {
+        ItemService.delete(id).then(() => onRefresh())
+    }
 
     const onDelete = async (i) => {
         let item = items[i]
@@ -18,7 +31,7 @@ function ItemList (props) {
         //     <>Do you want to delete: <b>{item.name}</b></>
         // )
         // if (confirmed) {
-        //     console.log('do delete ' + item.name)
+        //     doDelete(item.id)
         // }
 
         // method 2 - using normal confirm
@@ -28,12 +41,23 @@ function ItemList (props) {
 
     const onConfirmed = () => {
         setVisibleConfirm(false)
-        console.log('do delete ' + confirmItem.name)
+        doDelete(confirmItem.id)
+    }
+
+    const onClickItem = async (item) => {
+        try {
+            let newItem = await openItemEditor(item)
+            await ItemService.update(item.id, newItem)
+            onRefresh()
+        } catch (e) {
+            throw e
+        }
     }
 
     let itemCompList = items.map((item, i) => (
         <tr key={item.id} onClick={() => onClickItem(item)}>
             <td>{item.name}</td>
+            <td>{item.description}</td>
             <td>{item.created_at}</td>
             <td>
                 <div
@@ -42,7 +66,7 @@ function ItemList (props) {
                         onDelete(i)
                     }}
                 >
-                    <DeleteIcon/>
+                    <DeleteIcon />
                 </div>
             </td>
         </tr>
@@ -52,17 +76,18 @@ function ItemList (props) {
         <div>
             <table>
                 <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Created Time</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created Time</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {itemCompList}
+                    {itemCompList}
                 </tbody>
             </table>
-            <Confirm ref={confirmRef}/>
+            <Confirm ref={confirmRef} />
             <ConfirmNormal
                 message={<>Do you want to delete: <b>{confirmItem?.name}</b></>}
                 visible={visibleConfirm}

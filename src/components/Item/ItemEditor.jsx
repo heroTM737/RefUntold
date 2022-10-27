@@ -1,5 +1,6 @@
 import './ItemEditor.scss'
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { TextField } from "@mui/material";
 
 const defaultFormData = {
     name: '',
@@ -22,6 +23,13 @@ function ItemEditor(props, ref) {
         setVisible(false)
     }
 
+    const onChange = (e, field) => {
+        setFormData({
+            ...formData,
+            [field]: e.target.value
+        })
+    }
+
     useImperativeHandle(ref, () => ({
         open: (item = null) => {
             setItem(item)
@@ -40,17 +48,35 @@ function ItemEditor(props, ref) {
         return null
     }
 
+    const isChanged = item.name !== formData.name || item.description !== formData.description
+
     return (
         <div className={'ItemEditor panel'}>
             <div className={'panel-header'}>
                 Edit Item
             </div>
             <div className={'panel-body'}>
-                {JSON.stringify(item)}
+                <div className={'form-item-wrapper'}>
+                    <TextField
+                        required
+                        size="small"
+                        label="Name"
+                        value={formData.name}
+                        onChange={e => onChange(e, 'name')}
+                    />
+                </div>
+                <div className={'form-item-wrapper'}>
+                    <TextField
+                        size="small"
+                        label="Description"
+                        value={formData.description}
+                        onChange={e => onChange(e, 'description')}
+                    />
+                </div>
             </div>
             <div className={'panel-footer'}>
                 <button onClick={onCancel}>Cancel</button>
-                <button onClick={onSave}>Save</button>
+                <button onClick={onSave} disabled={!isChanged}>Save</button>
             </div>
         </div>
     )
