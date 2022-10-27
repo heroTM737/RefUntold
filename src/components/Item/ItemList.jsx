@@ -44,6 +44,10 @@ function ItemList(props) {
         doDelete(confirmItem.id)
     }
 
+    const onRejected = () => {
+        setVisibleConfirm(false)
+    }
+
     const onClickItem = async (item) => {
         try {
             let newItem = await openItemEditor(item)
@@ -92,6 +96,7 @@ function ItemList(props) {
                 message={<>Do you want to delete: <b>{confirmItem?.name}</b></>}
                 visible={visibleConfirm}
                 onConfirmed={onConfirmed}
+                onRejected={onRejected}
             />
         </div>
     )
