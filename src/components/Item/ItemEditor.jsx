@@ -13,6 +13,8 @@ function ItemEditor(props, ref) {
     const [formData, setFormData] = useState(defaultFormData)
     const [visible, setVisible] = useState(false)
 
+    // console.log('render ItemEditor')
+
     const onSave = () => {
         promiseCallback.resolve(formData)
         setVisible(false)

@@ -6,6 +6,8 @@ function ConfirmRef (props, ref) {
     const [message, setMessage] = useState('');
     const [promiseCallback, setPromiseCallback] = useState(null);
 
+    // console.log('render ConfirmRef')
+
     const onConfirm = () => {
         promiseCallback.resolve(true)
         setVisible(false)

@@ -3,6 +3,8 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/ma
 function ConfirmNormal (props) {
     const {visible, message, onConfirmed, onRejected} = props
 
+    console.log('render ConfirmNormal')
+
     return (
         <Dialog open={visible} onClose={onRejected}>
             <DialogTitle>Confirm</DialogTitle>

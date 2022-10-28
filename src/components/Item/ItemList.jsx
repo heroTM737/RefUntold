@@ -13,6 +13,8 @@ function ItemList(props) {
     const [confirmItem, setConfirmItem] = useState(null)
     const [visibleConfirm, setVisibleConfirm] = useState(false)
 
+    console.log('render ItemList')
+
     useEffect(() => {
         onRefresh()
     }, [])
@@ -93,7 +95,6 @@ function ItemList(props) {
                     </tbody>
                 </table>
             </TableContainer>
-
             <Confirm ref={confirmRef} />
             <ConfirmNormal
                 message={<>Do you want to delete: <b>{confirmItem?.name}</b></>}
