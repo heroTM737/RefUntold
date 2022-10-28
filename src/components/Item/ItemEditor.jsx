@@ -44,39 +44,39 @@ function ItemEditor(props, ref) {
         }
     }))
 
-    if (!visible) {
-        return null
-    }
-
-    const isChanged = item.name !== formData.name || item.description !== formData.description
+    const isChanged = item && (item.name !== formData.name || item.description !== formData.description)
 
     return (
-        <div className={'ItemEditor panel'}>
-            <div className={'panel-header'}>
-                Edit Item
-            </div>
-            <div className={'panel-body'}>
-                <div className={'form-item-wrapper'}>
-                    <TextField
-                        required
-                        size="small"
-                        label="Name"
-                        value={formData.name}
-                        onChange={e => onChange(e, 'name')}
-                    />
+        <div className={`ItemEditor ${visible ? 'visible' : ''}`}>
+            <div className={'panel'}>
+                <div className={'panel-header'}>
+                    Edit Item
                 </div>
-                <div className={'form-item-wrapper'}>
-                    <TextField
-                        size="small"
-                        label="Description"
-                        value={formData.description}
-                        onChange={e => onChange(e, 'description')}
-                    />
+                <div className={'panel-body'}>
+                    <div className={'form-item-wrapper'}>
+                        <TextField
+                            required
+                            size="small"
+                            style={{width: '100%'}}
+                            label="Name"
+                            value={formData.name}
+                            onChange={e => onChange(e, 'name')}
+                        />
+                    </div>
+                    <div className={'form-item-wrapper'}>
+                        <TextField
+                            size="small"
+                            style={{width: '100%'}}
+                            label="Description"
+                            value={formData.description}
+                            onChange={e => onChange(e, 'description')}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className={'panel-footer'}>
-                <Button variant="outlined" onClick={onCancel}>Cancel</Button>
-                <Button variant="contained" onClick={onSave} disabled={!isChanged}>Save</Button>
+                <div className={'panel-footer'}>
+                    <Button variant="outlined" onClick={onCancel}>Cancel</Button>
+                    <Button variant="contained" onClick={onSave} disabled={!isChanged}>Save</Button>
+                </div>
             </div>
         </div>
     )
