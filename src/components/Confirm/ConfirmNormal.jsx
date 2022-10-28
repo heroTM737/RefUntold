@@ -11,7 +11,7 @@ function ConfirmNormal (props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => onRejected?.()}>Cancel</Button>
-                <Button onClick={onConfirmed}>Confirm</Button>
+                <Button variant="outlined" onClick={onConfirmed}>Confirm</Button>
             </DialogActions>
         </Dialog>
     )

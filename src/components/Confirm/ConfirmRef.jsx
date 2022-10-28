@@ -34,7 +34,7 @@ function ConfirmRef (props, ref) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onCancel}>Cancel</Button>
-                <Button onClick={onConfirm}>Confirm</Button>
+                <Button onClick={onConfirm} variant="outlined">Confirm</Button>
             </DialogActions>
         </Dialog>
     )
