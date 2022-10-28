@@ -1,8 +1,10 @@
+import './ItemList.scss';
 import Confirm from "../Confirm/ConfirmRef";
 import ConfirmNormal from "../Confirm/ConfirmNormal";
 import { useEffect, useRef, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ItemService from "../../services/ItemService";
+import { Paper, TableContainer } from "@mui/material";
 
 function ItemList(props) {
     const { openItemEditor } = props;
@@ -64,33 +66,34 @@ function ItemList(props) {
             <td>{item.description}</td>
             <td>{item.created_at}</td>
             <td>
-                <div
+                <DeleteIcon
                     onClick={e => {
                         e.stopPropagation()
                         onDelete(i)
                     }}
-                >
-                    <DeleteIcon />
-                </div>
+                />
             </td>
         </tr>
     ));
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created Time</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {itemCompList}
-                </tbody>
-            </table>
+        <div className={'ItemList'}>
+            <TableContainer component={Paper}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {itemCompList}
+                    </tbody>
+                </table>
+            </TableContainer>
+
             <Confirm ref={confirmRef} />
             <ConfirmNormal
                 message={<>Do you want to delete: <b>{confirmItem?.name}</b></>}

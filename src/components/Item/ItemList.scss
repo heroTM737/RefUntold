@@ -1,0 +1,25 @@
+.ItemList {
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        tbody tr:hover {
+            background: #e9ecef;
+            cursor: pointer;
+        }
+
+        tr td, th {
+            border-bottom: 1px solid #ccc;
+            padding: 5px;
+            text-align: left;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr th {
+            background: #e3d0e3;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import './ItemEditor.scss'
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const defaultFormData = {
     name: '',
@@ -75,8 +75,8 @@ function ItemEditor(props, ref) {
                 </div>
             </div>
             <div className={'panel-footer'}>
-                <button onClick={onCancel}>Cancel</button>
-                <button onClick={onSave} disabled={!isChanged}>Save</button>
+                <Button variant="outlined" onClick={onCancel}>Cancel</Button>
+                <Button variant="contained" onClick={onSave} disabled={!isChanged}>Save</Button>
             </div>
         </div>
     )
